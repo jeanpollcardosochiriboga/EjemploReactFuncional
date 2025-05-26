@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Restaurante from './componentes/Restaurante';
 import "./componentes/Restaurante.css"; //importamos el css
+import React, { useState } from "react"; //importamos React y useState para manejar el estado
 
 //primer ejercicio
 /*function App() { //Componente funcional
@@ -74,6 +75,20 @@ function App() { //Componente funcional
     }
 
   ];
+  const [likesTotales, setLikesTotales] = React.useState(0);
+
+  const handlerLikeTotales = () => {
+    setLikesTotales((prevState) => prevState + 1); // Incrementa el contador de likes totales
+  };
+  
+ const handlerDislikeTotales = () => {
+    setLikesTotales((prevState) => prevState - 1); // Incrementa el contador de dislikes totales
+  }
+  // Estado para manejar los dislikes totales
+  const [dislikesTotales, setDislikesTotales] = React.useState(0);
+  const [mensajeErrorLikes, setMensajeErrorLikes] = React.useState(""); // Estado para manejar el mensaje de error de likes
+
+  
   return (
     <div className="App">
       {restaurantes.map((restaurante) => (
@@ -83,9 +98,13 @@ function App() { //Componente funcional
           tipo={restaurante.tipo}
           imagen={restaurante.imagen}
           key={restaurante.nombre} //clave unica para cada restaurante
-          
+          handlerLikeTotales={handlerLikeTotales} //pasamos la funcion para manejar los likes totales
+          handlerDislikeTotales={handlerDislikeTotales} //pasamos la funcion para manejar los dislikes totales
+          setMensajeErrorLikes={setMensajeErrorLikes} //pasamos la funcion para manejar el mensaje de error de likes
         />
       ))}
+      <h2>Total Likes: {likesTotales}</h2>
+       <h4>setMensajeErrorLikes</h4>
     </div>
   );
 }
